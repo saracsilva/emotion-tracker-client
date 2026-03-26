@@ -7,6 +7,7 @@ const SessionContextProvider = ({ children }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
   const [user, setUser] = useState(null);
+  const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
     if (token) {
@@ -18,14 +19,19 @@ const SessionContextProvider = ({ children }) => {
         .catch(() => {
           setIsAuthenticated(false);
           localStorage.removeItem('token');
+        })
+        .finally(() => {
+          setIsLoading(false);
         });
     } else {
       setIsAuthenticated(false);
+      setIsLoading(false);
     }
   }, [token]);
 
   const saveToken = (newToken) => {
     localStorage.setItem('token', newToken);
+    setIsLoading(true);
     setToken(newToken);
   };
 
@@ -38,7 +44,7 @@ const SessionContextProvider = ({ children }) => {
 
   return (
     <SessionContext.Provider
-      value={{ token, saveToken, isAuthenticated, user, logout }}
+      value={{ token, saveToken, isAuthenticated, isLoading, user, logout }}
     >
       {children}
     </SessionContext.Provider>

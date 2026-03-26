@@ -69,6 +69,7 @@ function Signup() {
           <input
             type='text'
             id='firstName'
+            data-cy='firstName-input'
             placeholder='Enter your first name'
             value={firstName}
             onChange={(e) => setFirstName(e.target.value)}
@@ -79,6 +80,7 @@ function Signup() {
           <input
             type='text'
             id='lastName'
+            data-cy='lastName-input'
             placeholder='Enter your last name'
             value={lastName}
             onChange={(e) => setLastName(e.target.value)}
@@ -89,6 +91,7 @@ function Signup() {
           <input
             type='email'
             id='email'
+            data-cy='email-input'
             placeholder='Enter your email'
             value={email}
             onChange={(e) => setEmail(e.target.value)}
@@ -99,12 +102,13 @@ function Signup() {
           <input
             type='password'
             id='password'
+            data-cy='password-input'
             placeholder='Enter your password'
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
         </div>
-        <button disabled={isLoading}>
+        <button data-cy='submit-button' disabled={isLoading}>
           {isLoading ? 'Loading...' : 'Submit'}
         </button>
       </form>

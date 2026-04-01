@@ -18,6 +18,7 @@ function Tag({ emoticon, name, handleEmotions }) {
       <input
         type='checkbox'
         id={name}
+        value={name}
         name='emotion'
         checked={selected}
         onChange={handleChange}

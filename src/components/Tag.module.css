@@ -1,0 +1,42 @@
+.tag {
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  background-color: var(--color-background);
+  border-radius: 5rem;
+  white-space: nowrap;
+  cursor: pointer;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  --hover-color: lch(from var(--color-text-900) l c h / 0.09);
+  --focus-color: var(--color-text-900);
+}
+
+.tag--selected {
+  background-color: var(--color-primary-100);
+  outline: 1px solid var(--color-primary-900);
+  color: var(--color-primary-700);
+  --hover-color: var(--color-primary-200);
+  --focus-color: var(--color-primary-900);
+}
+
+.tag:focus-within {
+  outline: 2px solid var(--focus-color);
+  outline-offset: 2px;
+}
+
+.tag:hover,
+.tag:focus-within {
+  background: var(--hover-color);
+}
+
+.tag__emoji {
+  font-size: 1.2rem;
+}
+
+.tag__input {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  pointer-events: none;
+}

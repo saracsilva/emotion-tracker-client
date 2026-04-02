@@ -1,0 +1,57 @@
+@import 'tailwindcss';
+
+@theme {
+  --font-body: 'Roboto', sans-serif;
+  --font-mono: 'Red Hat Mono', monospace;
+  --color-background: #f5f5f5;
+  --color-primary: #82d4bb;
+  --color-secondary: #ff66b3;
+  --color-text: #2e2c2f;
+
+  /* Primary shades (#82d4bb) */
+  --color-primary-50: #f0faf7;
+  --color-primary-100: #d9f2ea;
+  --color-primary-200: #b3e6d6;
+  --color-primary-300: #82d4bb; /* base color */
+  --color-primary-400: #59c4a5;
+  --color-primary-500: #36ae8e;
+  --color-primary-600: #288f74;
+  --color-primary-700: #22725d;
+  --color-primary-800: #1e5a4a;
+  --color-primary-900: #1a4a3d;
+  --color-primary-950: #0d2d25;
+
+  /* Secondary shades (#ff66b3) */
+  --color-secondary-50: #fff0f7;
+  --color-secondary-100: #ffd6ec;
+  --color-secondary-200: #ffadda;
+  --color-secondary-300: #ff80c4;
+  --color-secondary-400: #ff66b3; /* base color */
+  --color-secondary-500: #ff3399;
+  --color-secondary-600: #e6007e;
+  --color-secondary-700: #b30062;
+  --color-secondary-800: #800047;
+  --color-secondary-900: #4d002b;
+  --color-secondary-950: #2a0018;
+
+  /* Text shades (#2e2c2f) */
+  --color-text-50: #f5f5f5;
+  --color-text-100: #e0e0e0;
+  --color-text-200: #bdbdbd;
+  --color-text-300: #9e9e9e;
+  --color-text-400: #757575;
+  --color-text-500: #4e4c4f;
+  --color-text-600: #2e2c2f; /* base color */
+  --color-text-700: #232123;
+  --color-text-800: #181618;
+  --color-text-900: #0d0c0d;
+  --color-text-950: #050505;
+}
+
+body {
+  font-family: var(--font-body);
+  color: var(--color-text);
+  margin: 0;
+  padding: 0;
+  max-width: 1440px;
+}

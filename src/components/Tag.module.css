@@ -11,6 +11,16 @@
   --focus-color: var(--color-text-900);
 }
 
+.tag--static {
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  background-color: var(--color-background);
+  border-radius: 5rem;
+  white-space: nowrap;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+}
+
 .tag--selected {
   background-color: var(--color-primary-100);
   outline: 1px solid var(--color-primary-900);

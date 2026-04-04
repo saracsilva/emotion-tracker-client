@@ -1,6 +1,11 @@
 import styles from './Button.module.css';
 
-function Button({ children, fullWidth = false }) {
+interface ButtonProps {
+  children: React.ReactNode;
+  fullWidth?: boolean;
+}
+
+function Button({ children, fullWidth = false }: ButtonProps) {
   return (
     <button
       className={[

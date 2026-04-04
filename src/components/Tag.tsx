@@ -1,7 +1,14 @@
 import { useState } from 'react';
 import styles from './Tag.module.css';
 
-function Tag({ emoji, name, id, checkable = true }) {
+interface TagProps {
+  emoji: string;
+  name: string;
+  id: string;
+  checkable?: boolean;
+}
+
+function Tag({ emoji, name, id, checkable = true }: TagProps) {
   const [selected, setSelected] = useState(false);
 
   const handleChange = () => {

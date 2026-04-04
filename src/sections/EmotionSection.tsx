@@ -9,13 +9,13 @@ import Button from '../components/Button';
 function EmotionSection() {
   const { token } = useContext(SessionContext);
   const { emotions, isLoading: isLoadingEmotions } = useEmotions();
-  const { entry, isLoading: isLoadingEntry } = useDayEntry();
+  const { entry, isLoading: isLoadingEntry, refetch } = useDayEntry();
   const isLoading = isLoadingEntry || isLoadingEmotions;
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.target);
+    const formData = new FormData(e.currentTarget as HTMLFormElement);
     const selected = formData.getAll('emotion');
     try {
       await axios.post(
@@ -25,8 +25,11 @@ function EmotionSection() {
         },
         { headers: { Authorization: `Bearer ${token}` } },
       );
+      refetch();
     } catch (err) {
-      console.error(err);
+      if (axios.isAxiosError(err)) {
+        console.error(err);
+      }
     }
   };
 

@@ -1,12 +1,29 @@
-import { createContext, useEffect, useState } from 'react';
+import { createContext, useEffect, useState, ReactNode } from 'react';
 import { verify } from '../api/auth';
 
-export const SessionContext = createContext();
+interface SessionContextType {
+  token: string | null;
+  saveToken: (newToken: string) => void;
+  isAuthenticated: boolean;
+  isLoading: boolean;
+  user: User | null;
+  logout: () => void;
+}
 
-const SessionContextProvider = ({ children }) => {
+interface User {
+  _id: string;
+  firstName: string;
+  lastName: string;
+  email: string;
+}
+export const SessionContext = createContext<SessionContextType>(
+  {} as SessionContextType,
+);
+
+const SessionContextProvider = ({ children }: { children: ReactNode }) => {
   const [token, setToken] = useState(localStorage.getItem('token'));
   const [isAuthenticated, setIsAuthenticated] = useState(false);
-  const [user, setUser] = useState(null);
+  const [user, setUser] = useState<User | null>(null);
   const [isLoading, setIsLoading] = useState(true);
 
   useEffect(() => {
@@ -29,7 +46,7 @@ const SessionContextProvider = ({ children }) => {
     }
   }, [token]);
 
-  const saveToken = (newToken) => {
+  const saveToken = (newToken: string) => {
     localStorage.setItem('token', newToken);
     setIsLoading(true);
     setToken(newToken);

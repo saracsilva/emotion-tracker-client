@@ -1,18 +1,20 @@
 import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { signup } from '../api/auth';
+import axios from 'axios';
 
 function Signup() {
   const [firstName, setFirstName] = useState('');
   const [lastName, setLastName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
-  const [errors, setErrors] = useState([]);
+  const [errors, setErrors] = useState<string[]>([]);
   const [isLoading, setIsLoading] = useState(false);
   const navigate = useNavigate();
 
   const getEmptyFields = () => {
-    const emptyFields = [];
+    const emptyFields: string[] = [];
+
     if (!firstName) {
       emptyFields.push('first name');
     }
@@ -28,12 +30,13 @@ function Signup() {
     return emptyFields;
   };
 
-  const handleSubmit = async (e) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsLoading(true);
     setErrors([]);
 
     const emptyFields = getEmptyFields();
+
     if (emptyFields.length > 0) {
       setErrors([`Please fill in: ${emptyFields.join(', ')}`]);
       setIsLoading(false);
@@ -41,10 +44,12 @@ function Signup() {
     }
 
     try {
-      const response = await signup({ firstName, lastName, email, password });
+      await signup({ firstName, lastName, email, password });
       navigate('/login');
     } catch (err) {
-      setErrors(err.response.data.messages);
+      if (axios.isAxiosError(err)) {
+        setErrors(err.response?.data?.messages ?? ['Something went wrong']);
+      }
       console.error(err);
     } finally {
       setIsLoading(false);

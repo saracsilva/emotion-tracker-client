@@ -6,10 +6,11 @@ import axios from 'axios';
 import Tag from '../components/Tag';
 import Button from '../components/Button';
 
-function EmotionSection() {
+function EmotionSection({ fetchStreak }: { fetchStreak: () => void }) {
   const { token } = useContext(SessionContext);
   const { emotions, isLoading: isLoadingEmotions } = useEmotions();
   const { entry, isLoading: isLoadingEntry, refetch } = useDayEntry();
+
   const isLoading = isLoadingEntry || isLoadingEmotions;
   const API_URL = import.meta.env.VITE_API_URL;
 
@@ -26,6 +27,7 @@ function EmotionSection() {
         { headers: { Authorization: `Bearer ${token}` } },
       );
       refetch();
+      fetchStreak();
     } catch (err) {
       if (axios.isAxiosError(err)) {
         console.error(err);

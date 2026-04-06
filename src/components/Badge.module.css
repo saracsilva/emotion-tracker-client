@@ -1,0 +1,30 @@
+.badge {
+  padding-inline: 1rem;
+  padding-block: 0.75rem;
+  background-color: var(--color-background);
+  border-radius: 5rem;
+  white-space: nowrap;
+  cursor: pointer;
+  text-box-trim: trim-both;
+  text-box-edge: cap alphabetic;
+  --hover-color: lch(from var(--color-text-900) l c h / 0.09);
+  --focus-color: var(--color-text-900);
+  font-weight: bold;
+
+  &.badge--success {
+    background-color: var(--color-primary-100);
+
+    color: var(--color-primary-700);
+  }
+
+  &.badge--warning {
+    /* background-color: lch(from var(--color-warning-100) l c h / 0.6); */
+    background-color: var(--color-warning-200);
+    color: var(--color-warning-700);
+  }
+
+  &.badge--danger {
+    background-color: var(--color-danger-100);
+    color: var(--color-danger-700);
+  }
+}

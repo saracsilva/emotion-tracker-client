@@ -42,7 +42,7 @@ function EmotionSection() {
       </h3>
       {isLoading ? (
         <p>loading... </p>
-      ) : !entry?.emotions ? (
+      ) : !entry?.emotions.length ? (
         <form
           onSubmit={handleSubmit}
           className='flex gap-6 flex-col justify-end'
@@ -60,7 +60,9 @@ function EmotionSection() {
                 );
               })}
           </div>
-          <Button fullWidth={true}>Save mood</Button>
+          <Button type='submit' fullWidth={true}>
+            Save mood
+          </Button>
         </form>
       ) : (
         <div className='mb-3'>

@@ -1,7 +1,8 @@
-import { useContext, useEffect, useState } from 'react';
+import { useContext } from 'react';
 import { SessionContext } from '../context/SessionContext';
 import Logo from '../assets/emotion_tracker_logo.svg';
 import EmotionSection from '../sections/EmotionSection';
+import DailyReflectionsSection from '../sections/DailyReflectionsSection';
 
 function Dashboard() {
   const { user } = useContext(SessionContext);
@@ -47,8 +48,9 @@ function Dashboard() {
             })}
           </p>
         </header>
-        <div className='bg-background p-6 flex-1 rounded-xl'>
+        <div className='bg-background p-6 flex flex-1 gap-4 rounded-xl items-start'>
           <EmotionSection />
+          <DailyReflectionsSection />
         </div>
       </main>
     </div>

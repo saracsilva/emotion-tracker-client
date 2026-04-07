@@ -46,7 +46,7 @@ function EmotionSection({ fetchStreak }: { fetchStreak: () => void }) {
   };
 
   return (
-    <div className='bg-white p-6 rounded-xl w-md '>
+    <div className='bg-white p-6 rounded-xl w-md flex-1'>
       <h3 className='font-bold text-2xl mb-6'>
         How are you{' '}
         <span className='text-secondary font-mono font-semibold'>feeling</span>{' '}

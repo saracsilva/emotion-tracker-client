@@ -50,7 +50,7 @@ function DailyReflectionsSection() {
   };
 
   return (
-    <div className='bg-white p-6 rounded-xl w-md item-start'>
+    <div className='bg-white p-6 rounded-xl w-md item-start flex-1'>
       <div className='flex items-start justify-between'>
         <div>
           <p className='font-light'>Daily reflections</p>

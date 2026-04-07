@@ -23,18 +23,27 @@ function DailyReflectionsSection() {
       setIsSubmitting(true);
       const formData = new FormData(e.currentTarget as HTMLFormElement);
       const reflection = formData.get('reflection');
-      await axios.post(
-        `${API_URL}/entries`,
-        {
-          reflection: reflection,
-        },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      if (entry) {
+        await axios.patch(
+          `${API_URL}/entries/${entry._id}`,
+          {
+            reflection: reflection,
+          },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      } else {
+        await axios.post(
+          `${API_URL}/entries`,
+          {
+            reflection: reflection,
+          },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      }
       refetch();
       setIsEditing(false);
     } catch (err) {
       console.error(err);
-      setIsSubmitting(false);
     } finally {
       setIsSubmitting(false);
     }

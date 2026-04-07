@@ -1,4 +1,4 @@
-import { useContext, useEffect, useState, useCallback, useRef } from 'react';
+import { useContext, useEffect, useState, useCallback } from 'react';
 import { SessionContext } from '../context/SessionContext';
 import axios from 'axios';
 
@@ -20,7 +20,7 @@ interface Emotion {
 }
 
 export function useDayEntry(date?: Date) {
-  const stableDate = useRef(date ?? new Date()).current;
+  const utcDateStr = (date ?? new Date()).toISOString().split('T')[0];
   const { token } = useContext(SessionContext);
   const [entry, setEntry] = useState<DayEntry | null>(null);
   const [isLoading, setIsLoading] = useState(true);
@@ -30,8 +30,8 @@ export function useDayEntry(date?: Date) {
   const fetchEntry = useCallback(() => {
     setIsLoading(true);
     axios
-      .get(`${API_URL}/entries/${stableDate}`, {
-        params: { stableDate },
+      .get(`${API_URL}/entries/${utcDateStr}`, {
+        params: { utcDateStr },
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -42,7 +42,7 @@ export function useDayEntry(date?: Date) {
         setError(err);
         setIsLoading(false);
       });
-  }, [stableDate, token]);
+  }, [utcDateStr, token]);
 
   useEffect(() => {
     fetchEntry();

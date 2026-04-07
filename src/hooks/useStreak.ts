@@ -6,6 +6,7 @@ export function useStreak() {
   const { token } = useContext(SessionContext);
   const [streak, setStreak] = useState(0);
   const API_URL = import.meta.env.VITE_API_URL;
+  const today = new Date().toDateString();
 
   const fetchStreak = useCallback(() => {
     axios
@@ -22,7 +23,7 @@ export function useStreak() {
 
   useEffect(() => {
     fetchStreak();
-  }, [fetchStreak]);
+  }, [fetchStreak, today]);
 
   return { streak, fetchStreak };
 }

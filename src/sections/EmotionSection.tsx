@@ -16,16 +16,26 @@ function EmotionSection({ fetchStreak }: { fetchStreak: () => void }) {
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
-    const formData = new FormData(e.currentTarget as HTMLFormElement);
-    const selected = formData.getAll('emotion');
     try {
-      await axios.post(
-        `${API_URL}/entries`,
-        {
-          emotions: selected,
-        },
-        { headers: { Authorization: `Bearer ${token}` } },
-      );
+      const formData = new FormData(e.currentTarget as HTMLFormElement);
+      const selected = formData.getAll('emotion');
+      if (entry) {
+        await axios.patch(
+          `${API_URL}/entries/${entry._id}`,
+          {
+            emotions: selected,
+          },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      } else {
+        await axios.post(
+          `${API_URL}/entries`,
+          {
+            emotions: selected,
+          },
+          { headers: { Authorization: `Bearer ${token}` } },
+        );
+      }
       refetch();
       fetchStreak();
     } catch (err) {

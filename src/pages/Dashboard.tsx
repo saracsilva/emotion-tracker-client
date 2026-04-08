@@ -1,6 +1,7 @@
 import EmotionSection from '../sections/EmotionSection';
 import DailyReflectionsSection from '../sections/DailyReflectionsSection';
 import EmotionsFrequencyChart from '../charts/EmotionsFrequencyChart';
+import JournalSection from '../sections/JournalSection';
 
 function Dashboard() {
   return (
@@ -9,6 +10,7 @@ function Dashboard() {
         <EmotionSection />
         <DailyReflectionsSection />
       </div>
+      <JournalSection />
       <EmotionsFrequencyChart />
     </>
   );

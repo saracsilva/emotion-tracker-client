@@ -5,7 +5,7 @@
   --font-mono: 'Red Hat Mono', monospace;
   --color-background: #f5f5f5;
   --color-primary: #82d4bb;
-  --color-secondary: #ff66b3;
+  --color-secondary: #ed3a94;
   --color-text: #2e2c2f;
   --color-danger: #e85454;
   --color-warning: #f0b429;
@@ -23,18 +23,18 @@
   --color-primary-900: #1a4a3d;
   --color-primary-950: #0d2d25;
 
-  /* Secondary shades (#ff66b3) */
+  /* Secondary shades (#ed3a94) */
   --color-secondary-50: #fff0f7;
-  --color-secondary-100: #ffd6ec;
-  --color-secondary-200: #ffadda;
-  --color-secondary-300: #ff80c4;
-  --color-secondary-400: #ff66b3; /* base color */
-  --color-secondary-500: #ff3399;
-  --color-secondary-600: #e6007e;
-  --color-secondary-700: #b30062;
-  --color-secondary-800: #800047;
-  --color-secondary-900: #4d002b;
-  --color-secondary-950: #2a0018;
+  --color-secondary-100: #ffd6eb;
+  --color-secondary-200: #ffadd6;
+  --color-secondary-300: #ff66b3;
+  --color-secondary-400: #f53d9e;
+  --color-secondary-500: #ed3a94; /* base color */
+  --color-secondary-600: #cc2478;
+  --color-secondary-700: #a81860;
+  --color-secondary-800: #85124b;
+  --color-secondary-900: #630d38;
+  --color-secondary-950: #3d0722;
 
   /* Text shades (#2e2c2f) */
   --color-text-50: #f5f5f5;

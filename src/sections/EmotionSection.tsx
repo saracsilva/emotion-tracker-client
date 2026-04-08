@@ -1,13 +1,15 @@
 import { useContext } from 'react';
 import { SessionContext } from '../context/SessionContext';
+import { StreakContext } from '../context/StreakContext';
 import { useDayEntry } from '../hooks/useDayEntry';
 import { useEmotions } from '../hooks/useEmotions';
 import axios from 'axios';
 import Tag from '../components/Tag';
 import Button from '../components/Button';
 
-function EmotionSection({ fetchStreak }: { fetchStreak: () => void }) {
+function EmotionSection() {
   const { token } = useContext(SessionContext);
+  const { fetchStreak } = useContext(StreakContext);
   const { emotions, isLoading: isLoadingEmotions } = useEmotions();
   const { entry, isLoading: isLoadingEntry, refetch } = useDayEntry();
 
@@ -47,11 +49,11 @@ function EmotionSection({ fetchStreak }: { fetchStreak: () => void }) {
 
   return (
     <div className='bg-white p-6 rounded-xl w-md flex-1'>
-      <h3 className='font-bold text-2xl mb-6'>
+      <h2 className='font-bold text-2xl mb-6'>
         How are you{' '}
-        <span className='text-secondary font-mono font-semibold'>feeling</span>{' '}
+        <span className='text-secondary font-mono font-bold'>feeling</span>{' '}
         <span className='font-extrabold'>today?</span>
-      </h3>
+      </h2>
       {isLoading ? (
         <p>loading... </p>
       ) : !entry?.emotions.length ? (

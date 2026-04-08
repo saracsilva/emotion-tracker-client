@@ -70,9 +70,9 @@ function EmotionsFrequencyChart() {
       <div className='flex justify-between items-start'>
         <div>
           <p className='font-light'>Emotion history</p>
-          <h3 className='font-bold text-2xl mb-6'>
+          <h2 className='font-bold text-2xl mb-6'>
             Your emotions this {period}
-          </h3>
+          </h2>
         </div>
         <div className='flex gap-4'>
           <Button onClick={() => setPeriod('week')}>Week</Button>

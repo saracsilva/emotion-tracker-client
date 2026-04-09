@@ -1,13 +1,34 @@
+import { FileText } from 'lucide-react';
+import EmptyState from '../components/EmptyState';
+import { useDayEntry } from '../hooks/useDayEntry';
+import Button from '../components/Button';
+
 function JournalSection() {
+  const { entry, isLoading: isLoadingEntry } = useDayEntry();
+
   return (
     <div className='bg-white p-6 rounded-xl w-full item-start'>
       <h2 className='font-bold text-2xl mb-6'>
         Your <span className='text-secondary font-mono font-bold'>Journal</span>
       </h2>
-      <p className='font-light text-sm mb-4'>
-        Write down your thoughts and feelings to reflect on them later.
-      </p>
+      {isLoadingEntry ? (
+        <p>Loading...</p>
+      ) : entry?.journal ? (
+        <p className='text-gray-600'>{entry.journal}</p>
+      ) : (
+        <EmptyState
+          icon={<FileText size={48} strokeWidth={1.25} />}
+          title='No journal entry yet today'
+          message='How was your day? Take a moment to reflect.'
+          action={
+            <Button variant='primary' path='/journal'>
+              Add entry
+            </Button>
+          }
+        />
+      )}
     </div>
   );
 }
+
 export default JournalSection;

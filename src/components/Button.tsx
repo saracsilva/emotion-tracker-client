@@ -21,6 +21,7 @@ function Button({
     styles['button--' + variant],
     fullWidth ? styles['button--full-width'] : '',
     iconOnly ? styles['button--icon-only'] : '',
+    rest.className || '',
   ].join(' ');
 
   if (path) {

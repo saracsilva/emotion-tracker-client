@@ -3,7 +3,7 @@
   outline: 1px solid var(--color-text);
   width: 100%;
   padding: 1rem;
-  height: 90px;
+  min-height: 90px;
 }
 
 .textarea:focus {

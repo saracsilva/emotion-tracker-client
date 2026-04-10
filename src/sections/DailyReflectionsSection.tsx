@@ -54,7 +54,7 @@ function DailyReflectionsSection() {
       <div className='flex items-start justify-between'>
         <div>
           <p className='font-light'>Daily reflections</p>
-          <h3 className='font-bold text-2xl mb-6'>What’s on your mind? </h3>
+          <h2 className='font-bold text-2xl mb-6'>What’s on your mind? </h2>
         </div>
         {entry?.reflection && !isEditing && (
           <Button iconOnly={true} onClick={onclick}>

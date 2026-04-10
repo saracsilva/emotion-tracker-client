@@ -1,3 +1,4 @@
+import { Link } from 'react-router-dom';
 import Logo from '../assets/emotion_tracker_logo.svg';
 
 function Sidebar() {
@@ -10,8 +11,12 @@ function Sidebar() {
         <div>
           <h2 className=' font-light text-xs mb-4'>MENU</h2>
           <ul className='space-y-3'>
-            <li>Dashboard</li>
-            <li>Journal</li>
+            <li>
+              <Link to='/dashboard'>Dashboard</Link>
+            </li>
+            <li>
+              <Link to='/journal'>Journal</Link>
+            </li>
             <li>Emotions</li>
             <li>Charts</li>
           </ul>

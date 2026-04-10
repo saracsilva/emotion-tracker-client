@@ -3,6 +3,8 @@ import Login from './pages/Login';
 import Signup from './pages/Signup';
 import Dashboard from './pages/Dashboard';
 import ProtectedRoute from './components/ProtectedRoute';
+import PrivateLayout from './layout/PrivateLayout';
+import Journal from './pages/Journal';
 
 function App() {
   return (
@@ -10,13 +12,15 @@ function App() {
       <Route path='/login' element={<Login />} />
       <Route path='/signup' element={<Signup />} />
       <Route
-        path='/dashboard'
         element={
           <ProtectedRoute>
-            <Dashboard />
+            <PrivateLayout />
           </ProtectedRoute>
         }
-      />
+      >
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/journal' element={<Journal />} />
+      </Route>
     </Routes>
   );
 }

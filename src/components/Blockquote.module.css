@@ -1,0 +1,30 @@
+.blockquote {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+.blockquote__quote {
+  border-left: 4px solid var(--color-primary-500);
+  background-color: var(--color-background);
+  padding: 1.5rem;
+  color: var(--color-text);
+}
+
+.blockquote__text {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 3;
+  overflow: hidden;
+  line-clamp: 3;
+}
+
+.blockquote__link {
+  color: var(--color-primary-500);
+  display: block;
+  text-align: right;
+  font-weight: 500;
+}
+
+.blockquote__link:hover {
+  text-decoration: underline;
+}

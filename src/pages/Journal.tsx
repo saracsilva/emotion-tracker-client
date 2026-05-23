@@ -4,21 +4,27 @@ import Textarea from '../components/Textarea';
 import { useDayEntry } from '../hooks/useDayEntry';
 import { SessionContext } from '../context/SessionContext';
 import { useContext, useState } from 'react';
+import Calendar from '../components/Calendar';
 
 function Journal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const { entry, isLoading: isLoadingEntry, refetch } = useDayEntry();
+  const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const {
+    entry,
+    isLoading: isLoadingEntry,
+    refetch,
+  } = useDayEntry(selectedDate);
   const { token } = useContext(SessionContext);
   const API_URL = import.meta.env.VITE_API_URL;
 
-  const handleSubmit = (e: React.SyntheticEvent) => {
+  const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
     setIsSubmitting(true);
     try {
       const formData = new FormData(e.currentTarget as HTMLFormElement);
       const journal = formData.get('journal');
       if (entry) {
-        axios.patch(
+        await axios.patch(
           `${API_URL}/entries/${entry._id}`,
           {
             journal: journal,
@@ -30,7 +36,7 @@ function Journal() {
           },
         );
       } else {
-        axios.post(
+        await axios.post(
           `${API_URL}/entries`,
           {
             journal: journal,
@@ -61,7 +67,7 @@ function Journal() {
         ) : (
           <form onSubmit={handleSubmit} className='flex flex-col h-full'>
             <label className='block font-bold text-3xl mb-6' htmlFor='journal'>
-              Your{' '}
+              Your {entry?.journal}
               <span className='text-secondary font-mono font-bold'>
                 journal{' '}
               </span>
@@ -86,7 +92,7 @@ function Journal() {
         )}
       </div>
       <div className=' mx-auto p-6 bg-white rounded-xl'>
-        <p className='font-light text-sm mb-4'>Something</p>
+        <Calendar selectedDate={selectedDate} onDateChange={setSelectedDate} />
       </div>
     </div>
   );

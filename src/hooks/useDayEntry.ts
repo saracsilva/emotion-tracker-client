@@ -42,7 +42,11 @@ export function useDayEntry(date?: Date) {
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err);
+        if (err.response?.status === 404) {
+          setEntry(null);
+        } else {
+          setError(err);
+        }
         setIsLoading(false);
       });
   }, [utcDateStr, token]);

@@ -1,3 +1,8 @@
+:global(.rdp-root) {
+  --rdp-accent-color: var(--color-primary) !important;
+  --rdp-accent-background-color: var(--color-primary-100) !important;
+}
+
 .calendar__day-highlighted {
   position: relative;
 }

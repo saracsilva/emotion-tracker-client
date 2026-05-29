@@ -20,7 +20,13 @@ interface Emotion {
 }
 
 export function useDayEntry(date?: Date) {
-  const utcDateStr = (date ?? new Date()).toISOString().split('T')[0];
+  const d = date ?? new Date();
+  const utcDateStr = [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, '0'),
+    String(d.getDate()).padStart(2, '0'),
+  ].join('-');
+
   const { token, isLoading: isSessionLoading } = useContext(SessionContext);
   const [entry, setEntry] = useState<DayEntry | null>(null);
   const [isLoading, setIsLoading] = useState(true);

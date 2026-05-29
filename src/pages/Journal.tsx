@@ -2,6 +2,7 @@ import axios from 'axios';
 import Button from '../components/Button';
 import Textarea from '../components/Textarea';
 import { useDayEntry } from '../hooks/useDayEntry';
+import { useEntryDates } from '../hooks/useEntryDates';
 import { SessionContext } from '../context/SessionContext';
 import { useContext, useState } from 'react';
 import Calendar from '../components/Calendar';
@@ -9,13 +10,21 @@ import Calendar from '../components/Calendar';
 function Journal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
+  const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
   const {
     entry,
     isLoading: isLoadingEntry,
     refetch,
   } = useDayEntry(selectedDate);
+  const { dates: highlightedDates, refetchDates } = useEntryDates(currentMonth);
   const { token } = useContext(SessionContext);
   const API_URL = import.meta.env.VITE_API_URL;
+
+  const dateStr = [
+    selectedDate.getFullYear(),
+    String(selectedDate.getMonth() + 1).padStart(2, '0'),
+    String(selectedDate.getDate()).padStart(2, '0'),
+  ].join('-');
 
   const handleSubmit = async (e: React.SyntheticEvent) => {
     e.preventDefault();
@@ -40,6 +49,7 @@ function Journal() {
           `${API_URL}/entries`,
           {
             journal: journal,
+            date: dateStr,
           },
           {
             headers: {
@@ -50,6 +60,7 @@ function Journal() {
       }
       console.log('Journal entry saved successfully', journal);
       refetch();
+      refetchDates();
     } catch (error) {
       console.error('Error saving journal entry:', error);
     } finally {
@@ -92,7 +103,12 @@ function Journal() {
         )}
       </div>
       <div className=' mx-auto p-6 bg-white rounded-xl'>
-        <Calendar selectedDate={selectedDate} onDateChange={setSelectedDate} />
+        <Calendar
+          selectedDate={selectedDate}
+          onDateChange={setSelectedDate}
+          onMonthChange={setCurrentMonth}
+          highlightedDates={highlightedDates}
+        />
       </div>
     </div>
   );

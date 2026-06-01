@@ -5,12 +5,14 @@ import { useDayEntry } from '../hooks/useDayEntry';
 import { useEntryDates } from '../hooks/useEntryDates';
 import { SessionContext } from '../context/SessionContext';
 import { useContext, useState } from 'react';
+import { Pencil } from 'lucide-react';
 import Calendar from '../components/Calendar';
 
 function Journal() {
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [selectedDate, setSelectedDate] = useState<Date>(new Date());
   const [currentMonth, setCurrentMonth] = useState<Date>(new Date());
+  const [isEditing, setIsEditing] = useState(false);
   const {
     entry,
     isLoading: isLoadingEntry,
@@ -58,13 +60,13 @@ function Journal() {
           },
         );
       }
-      console.log('Journal entry saved successfully', journal);
       refetch();
       refetchDates();
     } catch (error) {
       console.error('Error saving journal entry:', error);
     } finally {
       setIsSubmitting(false);
+      setIsEditing(false);
     }
   };
 
@@ -73,15 +75,17 @@ function Journal() {
       <div className='flex-1 mx-auto p-6 bg-white rounded-xl'>
         {isLoadingEntry ? (
           <p>Loading...</p>
-        ) : entry?.journal ? (
-          <p className='text-gray-700 whitespace-pre-wrap'>{entry.journal}</p>
-        ) : (
-          <form onSubmit={handleSubmit} className='flex flex-col h-full'>
+        ) : !entry?.journal || isEditing ? (
+          <form
+            key={dateStr}
+            onSubmit={handleSubmit}
+            className='flex flex-col h-full'
+          >
             <label className='block font-bold text-3xl mb-6' htmlFor='journal'>
-              Your {entry?.journal}
+              Your{' '}
               <span className='text-secondary font-mono font-bold'>
-                journal{' '}
-              </span>
+                journal
+              </span>{' '}
               entry for today
             </label>
             <Textarea
@@ -100,12 +104,38 @@ function Journal() {
               Save Journal Entry
             </Button>
           </form>
+        ) : (
+          <>
+            <div className='flex items-start justify-between'>
+              <h1 className='block font-bold text-3xl mb-6'>
+                Your{' '}
+                <span className='text-secondary font-mono font-bold'>
+                  journal
+                </span>{' '}
+                entry for today
+              </h1>
+              <Button
+                iconOnly={true}
+                onClick={() => {
+                  setIsEditing(true);
+                }}
+              >
+                <Pencil size={20} />
+              </Button>
+            </div>
+            <p className='text-gray-700 whitespace-pre-wrap'>
+              {entry?.journal}
+            </p>
+          </>
         )}
       </div>
       <div className=' mx-auto p-6 bg-white rounded-xl'>
         <Calendar
           selectedDate={selectedDate}
-          onDateChange={setSelectedDate}
+          onDateChange={(date) => {
+            setSelectedDate(date);
+            setIsEditing(false);
+          }}
           onMonthChange={setCurrentMonth}
           highlightedDates={highlightedDates}
         />

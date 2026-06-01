@@ -95,14 +95,18 @@ function Journal() {
               name='journal'
               className='flex-1'
             />
-            <Button
-              type='submit'
-              className='mt-4'
-              variant='primary'
-              disabled={isSubmitting}
-            >
-              Save Journal Entry
-            </Button>
+            <div className='flex gap-2 mt-4'>
+              <Button
+                type='button'
+                variant='default'
+                onClick={() => setIsEditing(false)}
+              >
+                Cancel
+              </Button>
+              <Button type='submit' variant='primary' disabled={isSubmitting}>
+                Save Journal Entry
+              </Button>
+            </div>
           </form>
         ) : (
           <>

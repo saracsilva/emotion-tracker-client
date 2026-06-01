@@ -20,18 +20,27 @@ interface Emotion {
 }
 
 export function useDayEntry(date?: Date) {
-  const utcDateStr = (date ?? new Date()).toISOString().split('T')[0];
-  const { token } = useContext(SessionContext);
+  const d = date ?? new Date();
+  const utcDateStr = [
+    d.getFullYear(),
+    String(d.getMonth() + 1).padStart(2, '0'),
+    String(d.getDate()).padStart(2, '0'),
+  ].join('-');
+
+  const { token, isLoading: isSessionLoading } = useContext(SessionContext);
   const [entry, setEntry] = useState<DayEntry | null>(null);
   const [isLoading, setIsLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
   const API_URL = import.meta.env.VITE_API_URL;
 
   const fetchEntry = useCallback(() => {
+    if (!token) {
+      setIsLoading(false);
+      return;
+    }
     setIsLoading(true);
     axios
       .get(`${API_URL}/entries/${utcDateStr}`, {
-        params: { utcDateStr },
         headers: { Authorization: `Bearer ${token}` },
       })
       .then((res) => {
@@ -39,14 +48,20 @@ export function useDayEntry(date?: Date) {
         setIsLoading(false);
       })
       .catch((err) => {
-        setError(err);
+        if (err.response?.status === 404) {
+          setEntry(null);
+        } else {
+          setError(err);
+        }
         setIsLoading(false);
       });
   }, [utcDateStr, token]);
 
   useEffect(() => {
-    fetchEntry();
-  }, [fetchEntry]);
+    if (!isSessionLoading) {
+      fetchEntry();
+    }
+  }, [fetchEntry, isSessionLoading]);
 
   return { entry, isLoading, error, refetch: fetchEntry };
 }
